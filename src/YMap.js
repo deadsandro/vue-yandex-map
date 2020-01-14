@@ -79,6 +79,10 @@ export default {
       type: Object,
       default: () => ({}),
     },
+    objectsCallbacks: {
+      type: Object,
+      default: () => ({}),
+    },
     behaviors: {
       type: Array,
       default: () => ['default'],
@@ -198,6 +202,7 @@ export default {
       const config = {
         options: this.clusterOptions,
         callbacks: this.clusterCallbacks,
+        objects_callbacks: this.objectsCallbacks,
         map: this.myMap,
         useObjectManager: this.useObjectManager,
         objectManagerClusterize: this.objectManagerClusterize,

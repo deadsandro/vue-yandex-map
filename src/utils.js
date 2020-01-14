@@ -1,5 +1,5 @@
 export function addToMap(markers, {
-  options, callbacks, map, useObjectManager, objectManagerClusterize,
+  options, callbacks, objects_callbacks, map, useObjectManager, objectManagerClusterize,
 }) {
   const defaultLayout = `
       <div>{{ properties.balloonContentHeader }}</div>
@@ -21,6 +21,7 @@ export function addToMap(markers, {
   Object.keys(clusters).forEach((clusterName) => {
     const clusterOptions = options[clusterName] || {};
     const clusterCallbacks = callbacks[clusterName] || {};
+    const objectsCallbacks = objects_callbacks[clusterName] || {};
     const layout = clusterOptions.layout || defaultLayout;
     clusterOptions.clusterBalloonItemContentLayout = ymaps.templateLayoutFactory
       .createClass(layout);
@@ -41,6 +42,9 @@ export function addToMap(markers, {
       ));
       Object.keys(clusterCallbacks).forEach((key) => {
         ObjectManager.clusters.events.add(key, clusterCallbacks[key]);
+      });
+      Object.keys(objectsCallbacks).forEach((key) => {
+        ObjectManager.objects.events.add(key, objectsCallbacks[key]);
       });
       ObjectManager.add(clusters[clusterName]);
       map.geoObjects.add(ObjectManager);
