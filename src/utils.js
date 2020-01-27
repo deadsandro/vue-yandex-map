@@ -44,7 +44,9 @@ export function addToMap(markers, {
         ObjectManager.clusters.events.add(key, clusterCallbacks[key]);
       });
       Object.keys(objectsCallbacks).forEach((key) => {
-        ObjectManager.objects.events.add(key, objectsCallbacks[key]);
+        ObjectManager.objects.events.add(key, e => {
+          objectsCallbacks[key](e, ObjectManager)
+        });
       });
       ObjectManager.add(clusters[clusterName]);
       map.geoObjects.add(ObjectManager);
